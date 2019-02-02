@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8">
+	<title>Roma Vendas</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style>
+		.margin{
+			padding: 1.5%;
+		}
+		#btn{
+			margin-bottom: 1%;
+			float: right;
+		}
+	</style>
+	<script >
+	 function createPDF() {
+        var sTable = document.getElementById('tab');
+        var win = window.open("", "", 'height=1000,width=1000');
+        var style = "<style>";
+        style = style + "table {width: 100%;font: 17px Calibri;}";
+        style = style + ".bg-primary{background-color: #007bff;}";
+        style = style + ".bg-primary th{ color: #ffffff;}";
+        style = style + "h2{text-align: center;}";
+        style = style + "table, th, td {border: solid 0.5px #000000; border-collapse: collapse;";
+        style = style + "padding: 2px 3px;text-align: center;}";
+        style = style + "</style>";
+        win.document.write(style); 
+        win.document.write('<html><head>');
+        win.document.write("<title></title>"); 
+        win.document.write('</head>');
+        win.document.write('<body>');
+        win.document.write("<h2>Registros de ponto</h2>");
+        win.document.write('</body></html>');
+        win.document.write(sTable.outerHTML);
+        win.document.close();
+
+        
+        win.print();
+        win.close();
+    }
+	</script>
+</head>
+<body>
+<div class="margin">
+
+<button onclick="createPDF()" id="btn" class="btn btn-primary">Exportar</button>
+	<table class="table table-bordered table-hover" id="tab">
+				<tr class="bg-primary">
+					<th>Cliente</th>
+					<th>Data</th>
+					<th>Hora</th>
+			    	<th>L.Original</th>
+					<th>L.Editado</th>
+					<th>Pedido?</th>
+					<th>Motivo</th>
+					<th>Tipo</th>						
+				</tr>
+	<tbody id="list_lojas">
+		
+	</tbody>			
+
+</table>
+
+</div>
+
+
+<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "###########################################",
+    authDomain: "###########################################",
+    databaseURL: "###########################################",
+    projectId: "###########################################",
+    storageBucket: "###########################################",
+    messagingSenderId: "###########################################"
+  };
+  firebase.initializeApp(config);
+</script>
+<script src="index.js"></script>
+</body>
+</html>

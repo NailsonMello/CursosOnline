@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+		<head>
+				 <meta charset="utf-8">
+				 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+				 <link rel="icon" href="http://romadistribuidora.com.br/v3/wp-content/uploads/2016/09/cropped-logomarca-ROMA_r-32x32.png" sizes="32x32" />
+<link rel="icon" href="http://romadistribuidora.com.br/v3/wp-content/uploads/2016/09/cropped-logomarca-ROMA_r-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="http://romadistribuidora.com.br/v3/wp-content/uploads/2016/09/cropped-logomarca-ROMA_r-180x180.png" />
+<meta name="msapplication-TileImage" content="http://romadistribuidora.com.br/v3/wp-content/uploads/2016/09/cropped-logomarca-ROMA_r-270x270.png" />
+
+
+				 <title>Cursos online</title>
+				 
+				 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+				 <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
+
+				 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+				<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+				<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
+		</head>
+	<body>
+		 <div class="container">
+				 <div class="content text-right" style="margin-top: 1em;">
+				 	<button id="btn-logout" class="button is-success hide">Sair</button>
+				 </div>
+			 </div>
+	 	 <section class="">
+			 <div class="container">
+				 <h1 class="title">
+					Aulas disponíveis
+				 </h1>
+				 
+				 <div id="card-list" class="card-columns">
+				 
+				 </div>
+			</div> 
+		</section>	
+	 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+	 integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+	 crossorigin="anonymous"></script>
+	 <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+	 <script type="text/javascript">
+	 	
+	 	// Initialize Firebase
+  var config = {
+    apiKey: "###########################################",
+    authDomain: "###########################################",
+    databaseURL: "###########################################",
+    projectId: "###########################################",
+    storageBucket: "###########################################",
+    messagingSenderId: "###########################################"
+  };
+  firebase.initializeApp(config);
+
+var database = firebase.database();
+
+firebase.auth().onAuthStateChanged(function(user){
+
+
+    if (user == null) {
+     window.location.replace("index.html");
+    }
+ });
+
+
+var btn_Logout = document.getElementById('btn-logout');
+database.ref('Aulas').on('child_added', function(data) {
+ add_data_table(data.val().titulo,data.val().files,data.val().descricao,data.key);
+ var lastkey = data.key;
+ nextkey = parseInt(lastkey)+1;
+ });
+ database.ref('Aulas').on('child_changed', function(data) {
+ update_data_table(data.val().titulo,data.val().files,data.val().descricao,data.key)
+ });
+
+ function add_data_table(name,pic,email,key){
+  window.open.location = key;
+
+$( "#btnsumir" ).removeClass( "is-active" );
+ $("#card-list").append('<div class="card  mb-5" id="'+key+'"><a href="aula.html?aulas='+window.open.location+'" id="btnaulas" data-key="Deu Certo"><figure class="card-img-top"><video  src="'+pic+'"></video></figure></a><div class="card-body"><h5 class="card-title text-truncate">'+name+'</h5><p class="card-text text-truncate">'+email+'</p></div></div>');
+ }
+ function update_data_table(name,pic,email,key){
+ $("#card-list #"+key).html('<div class="card  mb-5" id="'+key+'"><a href="aula.html?aulas='+window.open.location+'" id="btnaulas"  data-key="Deu Certo"><figure class="card-img-top"><video  src="'+pic+'"></video></figure></a><div class="card-body"><h5 class="card-title text-truncate">'+name+'</h5><p class="card-text text-truncate">'+email+'</p></div></div>');
+ }
+
+ btn_Logout.addEventListener('click', e =>{
+
+        firebase.auth().signOut();
+        //alert('Seção encerrada...');
+        window.location.replace("index.html");
+
+});
+
+
+ ///desabilitar teclas
+
+document.oncontextmenu = document.body.oncontextmenu = function() {return false;}
+function tecla(){
+
+if (event.keyCode==123){alert("Tecla desativada");
+    event.preventDefault();
+}
+
+if (event.keyCode==17){
+    event.preventDefault();
+}
+if (event.keyCode==16){
+    event.preventDefault();
+}
+}
+
+document.onkeydown=tecla;
+
+	 </script>
+	</body>
+</html>

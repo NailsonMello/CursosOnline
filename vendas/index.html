@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Roma Vendas</title>
+	<link rel="icon" href="img/roma.png" type="image/x-icon" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script src="Chart.js"></script>
+	<script type="text/javascript" href="JQuery.js"></script>
+    	
+	<style>
+		.margin{
+			padding: 2%;
+		}
+		td{
+			padding-bottom: 10px;
+	}
+	table{
+		width: 100%
+	}
+
+	.geral_venda{
+		width: 100%;
+
+	}
+	.cota{
+		width: 100%;
+	
+	}
+	.text-center{
+		width: 100%;
+		float: right;
+		
+	}
+	.cv{
+		 
+		 object-fit: cover;
+    	object-position: center;
+	}
+	#chartContainer{
+		width: 100%;
+		height: 300px;	
+		 object-fit: cover;
+    	object-position: center;	
+	}
+	#chartContainer1{
+		width: 100%;
+		height: 300px;	
+		 object-fit: cover;
+    	object-position: center;	
+	}
+	.tbgeral{
+		width: 100%;
+
+	}
+	.center{
+		margin: 2% 10%;
+		display: inline;
+ 		float: right;
+	}
+
+	</style>
+	
+</head>
+<body>
+
+
+
+<a id="btn" class="center btn btn-primary" href="flip/samples/magazine/index.html">Catalogo</a>
+<h3 class="text-center">Escolha um vendedor</h3>
+<div class="margin">
+
+<div class="list-group text-center">
+	<table id="lista_users">
+
+   </table >
+
+</div>
+<div class="geral_venda">
+	<div id="teste">
+	
+<h3 class="text-center">Venda Geral</h3>
+
+<table class="table table-bordered table-hover tbgeral" id="tbGeral">
+				<tr class="bg-primary">
+					<th>Nome</th>
+					<th>Meta</th>
+					<th>Venda do dia p/ bater meta</th>
+			    	<th>Venda que falta p/ bater meta</th>
+					<th>Já vendido até hoje</th>
+					<th>%</th>						
+				</tr>
+	<tbody id="v_geral">
+		
+	</tbody>			
+
+</table>
+	<button onclick="Export()" id="btnExport" class="btn btn-primary">Imprimir PDF</button>
+    
+</div>
+</div>
+<div id="teste">
+<div class="cv" >
+	<div id="chartContainer"><!-- Plotly chart will be drawn inside this DIV --></div>
+
+	</div></div>
+<div id="teste">
+<div class="cota">
+<h3 class="text-center">Cota Fornecedor</h3>
+	
+<table class="table table-bordered table-hover" id="tbCota">
+				<tr class="bg-primary">
+					<th>Nome</th>
+					<th>Meta</th>
+					<th>Venda do dia p/ bater meta</th>
+			    	<th>Venda que falta p/ bater meta</th>
+					<th>Já vendido até hoje</th>
+					<th>%</th>
+					<th>Fornecedor</th>						
+				</tr>
+	<tbody id="v_forne">
+		
+	</tbody>			
+
+</table>
+<button onclick="Exportes()" id="btn" class="btn btn-primary">Imprimir cota forncedor</button>
+</div>
+</div>
+<div class="cv" >
+	<div id="chartContainer1"><!-- Plotly chart will be drawn inside this DIV --></div>
+
+	</div>
+<!--<div id="teste">
+<h3 class="text-center">Campanhas</h3>
+<table class="table table-bordered table-hover" id="tbCampanha">
+				<tr class="bg-primary">
+					<th>Nome</th>
+					<th>Mecânica</th>
+					<th>A receber</th>
+			    	<th>Vendido</th>
+			    	<th>Fornecedor</th>
+											
+				</tr>
+	<tbody id="v_campanha">
+		
+	</tbody>			
+
+</table>
+<button onclick="exportarTabela('tbCampanha' , 'Campanhas')" id="btn" class="btn btn-primary">Salvar campanhas</button>
+</div>-->
+</div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "###########################################",
+    authDomain: "###########################################",
+    databaseURL: "###########################################",
+    projectId: "###########################################",
+    storageBucket: "###########################################",
+    messagingSenderId: "###########################################"
+  };
+  firebase.initializeApp(config);
+</script>
+<script src="index.js"></script>
+<script src="Chart.pie.js"></script>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+<script src="ChartsVendas.js"></script>
+<script src="Grafic.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script >
+	 function Export() {
+        var sTable = document.getElementById('tbGeral');
+        var win = window.open("", "", 'height=1000,width=1000');
+        var style = "<style>";
+        style = style + "table {width: 100%;font: 17px Calibri;}";
+        style = style + ".bg-primary{background-color: #007bff;}";
+        style = style + ".bg-primary th{ color: #ffffff;}";
+        style = style + "h2{text-align: center;}";
+        style = style + "table, th, td {border: solid 0.5px #000000; border-collapse: collapse;";
+        style = style + "padding: 2px 3px;text-align: center;}";
+        style = style + "</style>";
+        win.document.write(style); 
+        win.document.write('<html><head>');
+        win.document.write('</head>');
+        win.document.write('<body>');
+        win.document.write("<h2>Venda geral</h2>");
+        win.document.write('</body></html>');
+        win.document.write(sTable.outerHTML);
+        win.document.close();
+
+        
+        win.print();
+        win.close();
+    }
+    function Exportes() {
+        var sTable = document.getElementById('tbCota');
+        var win = window.open("", "", 'height=1000,width=1000');
+        var style = "<style>";
+        style = style + "table {width: 100%;font: 17px Calibri;}";
+        style = style + ".bg-primary{background-color: #007bff;}";
+        style = style + ".bg-primary th{ color: #ffffff;}";
+        style = style + "h2{text-align: center;}";
+        style = style + "table, th, td {border: solid 0.5px #000000; border-collapse: collapse;";
+        style = style + "padding: 2px 3px;text-align: center;}";
+        style = style + "</style>";
+        win.document.write(style); 
+        win.document.write('<html><head>');
+        win.document.write('</head>');
+        win.document.write('<body>');
+        win.document.write("<h2>Cota forncedor</h2>");
+        win.document.write('</body></html>');
+        win.document.write(sTable.outerHTML);
+        win.document.close();
+
+        
+        win.print();
+        win.close();
+    }
+
+    
+	</script>
+</body>
+</html>

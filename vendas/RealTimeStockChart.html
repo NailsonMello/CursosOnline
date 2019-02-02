@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script>
+window.onload = function() {
+
+var dataPoints = [];
+
+
+function addData(data) {
+var nomes = '';
+ dt = '';
+ var dt = data.porcentagem*100;
+ var nomes = data.nome;
+		dataPoints.push({
+			label: nomes,
+			x: data.venda_dia,
+			y: dt
+			
+		});
+
+	
+	chart.render();
+
+console.log(data.meta);
+}
+$.getJSON("urlAqui", addData);
+$.getJSON("urlAqui", addData);
+$.getJSON("urlAqui", addData);
+$.getJSON("urlAqui", addData);
+$.getJSON("urlAqui", addData);
+$.getJSON("urlAqui", addData);
+$.getJSON("urlAqui", addData);
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light2",
+	exportEnabled: true,
+	animationEnabled: true,
+	title: {
+		text: "Grafico de vendas"
+	},
+	axisY: {
+		title: "Vendas",
+		titleFontSize: 24
+	},
+	data: [{
+		type: "pie",
+		startAngle: 25,
+		toolTipContent: "<b>{label}</b>: {y}%",
+		showInLegend: "true",
+		legendText: "{label}",
+		indexLabelFontSize: 16,
+		indexLabel: "{label} - {y}%",
+		dataPoints: dataPoints
+	}]
+});
+
+
+}
+</script>
+</head>
+<body>
+<div id="chartContainer"></div>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>

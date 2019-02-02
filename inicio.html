@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+		<head>
+				 <meta charset="utf-8">
+				 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+				 <link rel="icon" href="http://romadistribuidora.com.br/v3/wp-content/uploads/2016/09/cropped-logomarca-ROMA_r-32x32.png" sizes="32x32" />
+<link rel="icon" href="http://romadistribuidora.com.br/v3/wp-content/uploads/2016/09/cropped-logomarca-ROMA_r-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="http://romadistribuidora.com.br/v3/wp-content/uploads/2016/09/cropped-logomarca-ROMA_r-180x180.png" />
+<meta name="msapplication-TileImage" content="http://romadistribuidora.com.br/v3/wp-content/uploads/2016/09/cropped-logomarca-ROMA_r-270x270.png" />
+
+
+				 <title>Cursos online</title>
+				 
+				 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+				 <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
+
+				 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+				<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+				<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
+		</head>
+	<body>
+		 <div class="container">
+				 <div class="content text-right" style="margin-top: 1em;">
+				 	<button id="btn-logout" class="button is-success hide">Sair</button>
+				 </div>
+			 </div>
+	 	 <section class="">
+			 <div class="container">
+				 <h1 class="title">
+					Lista de cursos
+				 </h1>
+				 <div class="content">
+				 	<button id="btnAdd" class="button"><i class="fa fa-plus"></i> Adicionar curso</button>
+				 </div>
+				 <div id="card-list" class="card-columns">
+				 
+				 </div>
+			 </div>
+				 <div id="modal" class="modal">
+					 <div class="modal-background"></div>
+					 <div class="modal-card">
+		     <header class="modal-card-head">
+				 <p class="modal-card-title">Formulario de cadastro</p>
+				 <button class="btnClose delete" aria-label="close"></button>
+			 </header>
+		 <section class="modal-card-body">
+
+	 	<div class="custom-file">
+	 		<h5 id="teste" class="text-center"></h5>
+	 		<progress class="progress is-success" value="0" max="100" id="uploadProgress"></progress>
+		<div class="custom-file">
+		    <input type="file" class="custom-file-input" onchange="previewFile()"  id="files" name="files[]" multiple required/>
+		    <label class="custom-file-label" for="customFile">Carregar video</label>
+		</div>
+
+	    <div>
+			 <div class="field">
+				 <label class="label">Titulo</label>
+					 <div class="control">
+						 <input type="hidden" id="txtType">
+						 <input type="hidden" id="txtKey">
+						 <input class="input" id="txtName" type="text" placeholder="Informe o titulo">
+					 </div>
+				 <p class="help"> </p>
+			 </div>
+		     <div class="field">
+				 <label class="label">Descrição</label>
+				 <div class="control">
+				 <textarea  class="input" id="txtEmail" type="text" placeholder="Coloque aqui um texto"></textarea>
+			  </div>
+				 <p class="help"> </p>
+			  </div>
+			<!--<div class="field">
+				 <label class="label">Imagem perfil</label>
+					 <div class="control">
+				 <input class="input" id="txtPic" type="text" placeholder="Profile picture url">
+			</div>
+
+				 <p class="help"></p>
+			 </div>-->
+				 </section>
+				 <footer class="modal-card-foot">
+					 <button id="btnSave" class="button is-success">Salvar</button>
+					 <button id="btnClose" class="button">Cancelar</button>
+				 </footer>
+			 </div>
+	 	</div>
+	 </section>
+
+
+	 <section class="section">
+						 <div id="modal-tarefa" class="modal">
+					 <div class="modal-background"></div>
+					 <div class="modal-card">
+		     <header class="modal-card-head">
+				 <p class="modal-card-title">Formulario de cadastro</p>
+				 <button class="btnClose delete" aria-label="close"></button>
+			 </header>
+		 <section class="modal-card-body">
+	    <div>
+			 <div class="field">
+				 <label class="label">Pergunta</label>
+					 <div class="control">
+						 <input type="hidden" id="txtTypet">
+						 <input type="hidden" id="txtKeyt">
+						 <input class="input" id="txtPergunta" type="text" placeholder="Digite a pergunta">
+					 </div>
+				 <p class="help"> </p>
+			 </div>
+		     <div class="field">
+				 <label class="label">Questão 1</label>
+				 <div class="control">
+				 <input  class="input" id="txtQuestao1" type="text" placeholder="Digite a primeira alternativa"></textarea>
+			  </div>
+				 <p class="help"> </p>
+			  </div>
+			<div class="field">
+				 <label class="label">Questão 2</label>
+					 <div class="control">
+				 <input class="input" id="txtQuestao2" type="text" placeholder="Digite a segunda alternativa">
+			</div>
+
+				 <p class="help"></p>
+			 </div>
+
+			 <div class="field">
+				 <label class="label">Questão 3</label>
+					 <div class="control">
+				 <input class="input" id="txtQuestao3" type="text" placeholder="Digite a terceira alternativa">
+			</div>
+
+				 <p class="help"></p>
+			 </div>
+			
+
+			<div class="field">
+				 <label class="label">Questão 4</label>
+					 <div class="control">
+				 <input class="input" id="txtQuestao4" type="text" placeholder="Digite a quarta alternativa">
+			</div>
+
+				 <p class="help"></p>
+			 </div>
+			
+
+			<div class="field">
+				 <label class="label">Resposta</label>
+					 <div class="control">
+				 <input class="input" id="txtResposta" type="text" placeholder="Copie e cole a resposta correta aqui">
+			</div>
+
+				 <p class="help"></p>
+			 </div>
+			
+				 </section>
+				 <footer class="modal-card-foot">
+					 <button id="btnSaveTarefa" class="button is-success">Salvar</button>
+					 <button id="btnCloseTarefa" class="button">Cancelar</button>
+				 </footer>
+			 </div>
+	 	</div>
+	 </section>
+	 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+	 integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+	 crossorigin="anonymous"></script>
+	 <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+	 <script type="text/javascript" src="app.js"></script>
+	</body>
+</html>
